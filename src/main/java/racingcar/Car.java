@@ -8,7 +8,7 @@ public class Car {
 
     public void move(){
         int rnum=pickNumberInRange(0,9);
-        if(rnum>4)movement++;
+        if(rnum>=4)movement++;
     }
     public void print_move(){
         int loop=movement;
