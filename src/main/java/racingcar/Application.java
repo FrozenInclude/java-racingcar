@@ -1,5 +1,8 @@
 package racingcar;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import static camp.nextstep.edu.missionutils.Console.readLine;
 
 public class Application {
@@ -20,6 +23,7 @@ public class Application {
         }
 
         System.out.println("시도할 회수는 몇회인가요?");
+
         int n;
         try {
             n = Integer.parseInt(readLine());
@@ -37,6 +41,24 @@ public class Application {
                 arr.print_move();
             }
             System.out.println();
+        }
+
+        System.out.print("최종 우승자 : ");
+
+        ArrayList<String> bestname=new ArrayList<String>();
+        int best_move=-1;
+        for(Car i:carlist){
+            if(i.getMovement()>=best_move) {
+                if(!(i.getMovement()==best_move))
+                    bestname.clear();
+                bestname.add(i.name);
+                best_move=i.getMovement();
+            }
+        }
+        for(int i=0;i<bestname.size();i++){
+            System.out.print(bestname.get(i));
+            if(i==bestname.size()-1)System.out.println();
+            else System.out.print(", ");
         }
     }
 }

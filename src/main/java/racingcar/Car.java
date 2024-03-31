@@ -17,4 +17,7 @@ public class Car {
             System.out.print('-');
         System.out.println();
     }
+    public int getMovement(){
+        return movement;
+    }
 }
