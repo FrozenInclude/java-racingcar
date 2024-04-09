@@ -7,16 +7,16 @@ public class Car {
     private int movement;
 
     public  Car(String name){
-        this.name=name;
-        this.movement=0;
+        this.name = name;
+        this.movement = 0;
     }
 
     @Override
     public String toString() {
-        return name+" : "+"-".repeat(movement)+"\n";
+        return name+" : "+"-".repeat(movement);
     }
     public void move(){
-        if(pickNumberInRange(0,9)>=4){
+        if(pickNumberInRange(0,9) >= 4){
             movement++;
         }
     }

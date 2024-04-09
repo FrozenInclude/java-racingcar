@@ -5,28 +5,32 @@ import java.util.List;
 import static camp.nextstep.edu.missionutils.Console.readLine;
 
 public class Racing {
-    private List<Car> players;
+    private final List<Car> players;
     private int simulationCount;
 
+    public Racing(){
+        this.players = new ArrayList<Car>();
+        this.simulationCount = 0;
+    }
     public void runGame(){
         input();
-        simulation(simulationCount);
+        simulateRace(simulationCount);
         displayWinner();
     }
     private  void input(){
         String input;
-        String[] parsed;
+        String[] parsedInput;
 
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
-        input=readLine();
-        parsed=input.split(",");
-        for(int i = 0; i < parsed.length; i++) {
-            String name=parsed[i].trim();
-            if(name.isEmpty()||name.length()>5){
+        input = readLine();
+        parsedInput = input.split(",");
+        for(String name : parsedInput) {
+            String trimmedName = name.trim();
+            if(trimmedName.isEmpty() || trimmedName.length()>5){
                 throw new IllegalArgumentException("잘못된 입력 입니다!");
             }
             else{
-                Car player=new Car(name);
+                Car player = new Car(trimmedName);
                 players.add(player);
             }
         }
@@ -39,7 +43,7 @@ public class Racing {
             throw new IllegalArgumentException("잘못된 입력 입니다!");
         }
     }
-    private void simulation(int n) {
+    private void simulateRace(int n) {
         while (n-- > 0) {
             for (Car arr : players) {
                 arr.move();
@@ -48,12 +52,12 @@ public class Racing {
         }
     }
     private void displayWinner(){
-        List<String> winnerNames = getWinnerNames();
-
         System.out.print("최종 우승자 : ");
-        for(int i=0;i<winnerNames.size();i++){
+
+        List<String> winnerNames = getWinnerNames();
+        for(int i=0; i<winnerNames.size(); i++){
             System.out.print(winnerNames.get(i));
-            if(i==winnerNames.size()-1){
+            if(i == winnerNames.size()-1){
                 System.out.println();
             }
             else{
@@ -63,15 +67,15 @@ public class Racing {
     }
     private List<String> getWinnerNames() {
         List<String> winnerNames = new ArrayList<String>();
-        int best_move = -1;
+        int bestMove = -1;
 
         for (Car i : players) {
-            if (i.getMovement() >= best_move) {
-                if (!(i.getMovement() == best_move)){
+            if (i.getMovement() >= bestMove) {
+                if (i.getMovement() > bestMove){
                     winnerNames.clear();
                 }
                 winnerNames.add(i.getName());
-                best_move = i.getMovement();
+                bestMove = i.getMovement();
             }
         }
         return  winnerNames;
