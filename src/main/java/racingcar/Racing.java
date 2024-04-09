@@ -1,6 +1,7 @@
 package racingcar;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.*;
 
 import static camp.nextstep.edu.missionutils.Console.readLine;
 
@@ -66,18 +67,13 @@ public class Racing {
         }
     }
     private List<String> getWinnerNames() {
-        List<String> winnerNames = new ArrayList<String>();
-        int bestMove = -1;
+        int bestMove = players.stream()
+                .mapToInt(Car::getMovement)
+                .max().getAsInt();
 
-        for (Car i : players) {
-            if (i.getMovement() >= bestMove) {
-                if (i.getMovement() > bestMove){
-                    winnerNames.clear();
-                }
-                winnerNames.add(i.getName());
-                bestMove = i.getMovement();
-            }
-        }
-        return  winnerNames;
+        return players.stream()
+                .filter(car -> car.getMovement() == bestMove)
+                .map(Car::getName)
+                .collect(Collectors.toList());
     }
 }
