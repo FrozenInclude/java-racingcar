@@ -3,18 +3,27 @@ package racingcar;
 import static camp.nextstep.edu.missionutils.Randoms.pickNumberInRange;
 
 public class Car {
-    private int movement=0;
-    public String name;
+    private  final  String name;
+    private int movement;
+
+    public  Car(String name){
+        this.name=name;
+        this.movement=0;
+    }
 
     @Override
     public String toString() {
         return name+" : "+"-".repeat(movement)+"\n";
     }
     public void move(){
-        int rnum=pickNumberInRange(0,9);
-        if(rnum>=4)movement++;
+        if(pickNumberInRange(0,9)>=4){
+            movement++;
+        }
     }
     public int getMovement(){
         return movement;
+    }
+    public String getName(){
+        return name;
     }
 }
